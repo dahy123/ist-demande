@@ -3,7 +3,77 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/* Mode sombre piloté par la classe .dark sur <html> (voir partials/theme-script). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Couleur principale : modifier ici pour changer tout le thème. */
+    --color-brand-50: #eef0ff;
+    --color-brand-100: #e0e3ff;
+    --color-brand-200: #c6caff;
+    --color-brand-300: #a5abff;
+    --color-brand-500: #6366f1;
+    --color-brand-600: #5048e5;
+    --color-brand-700: #4338ca;
+    --color-brand-900: #1e1b4b;
+
+    /* Couleurs sémantiques (clair) — redéfinies plus bas pour le mode sombre. */
+    --color-canvas: #f4f5fa;
+    --color-surface: #ffffff;
+    --color-surface-2: #f8f9fc;
+    --color-line: #eceef3;
+    --color-line-strong: #dfe2ea;
+    --color-ink: #111827;
+    --color-muted: #6b7280;
+    --color-subtle: #9ca3af;
+}
+
+.dark {
+    --color-canvas: #0b0d14;
+    --color-surface: #141722;
+    --color-surface-2: #1b1f2d;
+    --color-line: #232838;
+    --color-line-strong: #2e3448;
+    --color-ink: #f3f4f6;
+    --color-muted: #9aa1b2;
+    --color-subtle: #6b7286;
+    color-scheme: dark;
+}
+
+@layer components {
+    .card {
+        @apply rounded-xl border border-line bg-surface p-4;
+    }
+
+    .form-label {
+        @apply mb-1 block text-xs font-medium text-muted;
+    }
+
+    .form-input {
+        @apply block w-full rounded-lg border border-line-strong bg-surface px-3 py-2 text-sm text-ink placeholder:text-subtle transition outline-none focus:border-brand-500 focus:ring-3 focus:ring-brand-500/20;
+    }
+
+    .form-error {
+        @apply mt-1 text-xs text-red-500;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-3 disabled:opacity-60;
+    }
+
+    .btn-primary {
+        @apply bg-brand-600 text-white hover:bg-brand-700 focus-visible:ring-brand-500/30;
+    }
+
+    .btn-secondary {
+        @apply border border-line-strong bg-surface text-ink hover:bg-surface-2 focus-visible:ring-line;
+    }
+
+    .icon-btn {
+        @apply grid size-9 place-items-center rounded-lg border border-line bg-surface text-muted transition hover:text-ink;
+    }
 }

@@ -10,16 +10,18 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Compte administrateur par défaut (à changer après la première connexion).
+        User::updateOrCreate(
+            ['identifiant' => 'admin'],
+            [
+                'nom' => 'Administrateur',
+                'prenoms' => 'Compte',
+                'password' => 'password',
+                'service' => 'Scolarité',
+                'actif' => true,
+            ],
+        );
     }
 }
