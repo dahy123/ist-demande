@@ -19,7 +19,7 @@
     <div class="lg:pl-60">
         @include('partials.header', ['title' => $title])
 
-        <main class="px-4 pb-6 lg:px-6">
+        <main class="px-4 pb-6 ">
             @if (session('status'))
                 <div class="mb-4 flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-400">
                     <x-icon name="check" class="size-4" />

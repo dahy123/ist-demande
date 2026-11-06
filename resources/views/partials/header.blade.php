@@ -1,6 +1,6 @@
 @php($user = auth()->user())
 
-<header class="sticky top-0 z-20 bg-canvas/80 px-4 backdrop-blur lg:px-6">
+<header class="sticky top-0 z-20 bg-canvas/80 px-4 backdrop-blur py-1.5">
     <div class="flex h-14 items-center gap-3">
         <button type="button" data-sidebar-open class="rounded-md p-1.5 text-muted hover:bg-surface lg:hidden" aria-label="Ouvrir le menu">
             <x-icon name="menu" />

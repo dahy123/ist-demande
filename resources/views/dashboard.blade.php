@@ -8,7 +8,7 @@
         ];
     @endphp
 
-    <p class="mb-4 text-sm text-muted">Bonjour {{ auth()->user()->prenoms ?: auth()->user()->nom }}, voici l'activité du jour.</p>
+    <!-- <p class="mb-4 text-sm text-muted">Bonjour {{ auth()->user()->prenoms ?: auth()->user()->nom }}, voici l'activité du jour.</p> -->
 
     {{-- Indicateurs --}}
     <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
