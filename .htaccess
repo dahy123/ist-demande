@@ -1,0 +1,10 @@
+# Hébergement mutualisé (InfinityFree) : la racine web est forcément htdocs/.
+# Toutes les requêtes sont redirigées vers public/ : .env, vendor/, storage/… restent inaccessibles.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>

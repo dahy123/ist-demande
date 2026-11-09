@@ -1,0 +1,58 @@
+# Déploiement automatique sur InfinityFree (FTP) à chaque push sur main.
+# Secrets à créer dans GitHub → Settings → Secrets and variables → Actions :
+#   FTP_SERVER   ex. ftpupload.net
+#   FTP_USERNAME ex. if0_XXXXXXXX
+#   FTP_PASSWORD mot de passe du compte d'hébergement
+# Le fichier .env n'est jamais envoyé : il reste celui déposé une fois à la main sur le serveur.
+
+name: Déploiement InfinityFree
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Dépendances PHP (production)
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Compilation des assets
+        run: npm ci && npm run build
+
+      - name: Envoi FTP vers htdocs/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /htdocs/
+          exclude: |
+            **/.git/**
+            **/node_modules/**
+            .github/**
+            .claude/**
+            .agents/**
+            doc/**
+            tests/**
+            storage/logs/*.log
+            storage/framework/sessions/*
+            storage/framework/views/*.php
+            .env
+            .env.example
+            .mcp.json
+            boost.json
+            opencode.json
+            database/database.sqlite
