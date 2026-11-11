@@ -27,6 +27,13 @@
                 </div>
             @endif
 
+            @if (session('error'))
+                <div class="mb-4 flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm text-red-700 dark:text-red-400">
+                    <x-icon name="x" class="size-4" />
+                    {{ session('error') }}
+                </div>
+            @endif
+
             {{ $slot }}
         </main>
     </div>

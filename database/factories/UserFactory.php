@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -31,5 +32,12 @@ class UserFactory extends Factory
     public function inactif(): static
     {
         return $this->state(fn () => ['actif' => false]);
+    }
+
+    public function admin(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            $user->roles()->attach(Role::firstOrCreate(['code' => Role::ADMIN], ['libelle' => 'Administrateur']));
+        });
     }
 }

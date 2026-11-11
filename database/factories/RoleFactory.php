@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Role;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<Role>
+ */
+class RoleFactory extends Factory
+{
+    public function definition(): array
+    {
+        return [
+            'code' => fake()->unique()->lexify('ROLE_????'),
+            'libelle' => fake()->jobTitle(),
+        ];
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn () => ['code' => Role::ADMIN, 'libelle' => 'Administrateur']);
+    }
+}

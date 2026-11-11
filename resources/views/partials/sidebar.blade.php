@@ -14,6 +14,7 @@
     {{-- Navigation (définie dans config/navigation.php) --}}
     <nav class="flex-1 space-y-5 overflow-y-auto px-3 py-3">
         @foreach (config('navigation') as $section)
+            @continue(isset($section['can']) && auth()->user()->cannot($section['can']))
             <div>
                 <p class="mb-1 px-2.5 text-[11px] font-semibold tracking-wider text-subtle uppercase">{{ $section['title'] }}</p>
                 <ul class="space-y-0.5">

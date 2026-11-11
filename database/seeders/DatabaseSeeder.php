@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -12,8 +13,10 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        $this->call(ReferentielSeeder::class);
+
         // Compte administrateur par défaut (à changer après la première connexion).
-        User::updateOrCreate(
+        $admin = User::updateOrCreate(
             ['identifiant' => 'admin'],
             [
                 'nom' => 'Administrateur',
@@ -23,5 +26,18 @@ class DatabaseSeeder extends Seeder
                 'actif' => true,
             ],
         );
+
+        $admin->roles()->syncWithoutDetaching(Role::where('code', Role::ADMIN)->pluck('id'));
+
+        $oldon = User::updateOrCreate(
+            ['identifiant' => 'oldon'],
+            [
+                'nom' => 'Oldon',
+                'password' => '1234',
+                'actif' => true,
+            ],
+        );
+
+        $oldon->roles()->syncWithoutDetaching(Role::where('code', Role::ADMIN)->pluck('id'));
     }
 }
